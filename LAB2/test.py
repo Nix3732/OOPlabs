@@ -1,4 +1,5 @@
 import enum
+from turtle import width
 from typing import Dict, Tuple, List
 from dataclasses import dataclass
 
@@ -25,34 +26,40 @@ class SymbolTemplate:
     char: str
     lines: List[str]
     width: int
+    hight: int
 
 
 class Printer:
-    templates: Dict[str, SymbolTemplate] = {}          
+    templates: Dict[str, SymbolTemplate] = {}
+    width: int
+    hight: int
     
     @classmethod
     def load_font(cls, filename: str):              
-        with open(filename, 'r', encoding='utf-8') as f:
+        with open(filename, 'r') as f:
             current_char = None
             current_lines = []
             
+            cls.widht = int(f.readline())
+            cls.hight = int(f.readline())
+
             for line in f:
                 line = line.rstrip('\n')
                 if not line and current_char is None:
                     continue
                 
-                if line.startswith('CHAR:'):            
+                if line.startswith('CHAR:'):  
+                    width = cls.widht
+                    hight = cls.hight
                     if current_char is not None:
-                        width = max(len(l) for l in current_lines) if current_lines else 0
-                        cls.templates[current_char] = SymbolTemplate(current_char, current_lines, width)         
-                    current_char = line[5:].strip().upper()
+                        cls.templates[current_char] = SymbolTemplate(current_char, current_lines, width, hight)         
+                    current_char = line[width:].strip().upper()
                     current_lines = []
                 else:
                     current_lines.append(line)
             
             if current_char is not None:
-                width = max(len(l) for l in current_lines) if current_lines else 0
-                cls.templates[current_char] = SymbolTemplate(current_char, current_lines, width)           
+                cls.templates[current_char] = SymbolTemplate(current_char, current_lines, width, hight)           
     
     @classmethod
     def move_cursor(cls, x: int, y: int):          
@@ -76,9 +83,8 @@ class Printer:
                    position: Tuple[int, int] = (1, 1), symbol: str = '*'):           
 
         x, y = position
-        height = 5
         
-        for line_num in range(height):
+        for line_num in range(cls.hight):
             cls.move_cursor(x, y + line_num)
             cls.set_color(color)
             
@@ -114,7 +120,8 @@ class Printer:
     def __exit__(self, *args):
         print(COLORING.format(Color.TRANSPARENT.value, ''), end="")       
     
-    def print(self, text: str, symbol: str = None):                    
+    def print(self, text: str, symbol: str = None):
+        
         use_symbol = symbol if symbol is not None else self.symbol
         Printer.print_text(text, self.color, self.position, use_symbol)
         
@@ -126,7 +133,7 @@ class Printer:
             if char == ' ':                   
                 total_width += 3
             else:
-                total_width += 6
+                total_width += self.position[0]
         
         self.position = (self.position[0] + total_width, self.position[1])
 
@@ -139,6 +146,7 @@ if __name__ == "__main__":
     Printer.print_text("EGOR", Color.RED, (50, 15), '#')
     Printer.print_text("POSTOK", Color.BLUE, (1, 16), '@')
     
-    with Printer(Color.GREEN, (50, 20), '+') as p:
-        p.print("LO  VM")
-        p.print("            ABC")
+    with Printer(Color.GREEN, (1, 25), '+') as p:
+        p.print("LOV E")
+        p.print("         ABC")
+
