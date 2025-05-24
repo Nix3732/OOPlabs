@@ -59,7 +59,6 @@ class ConsoleHandler(LogHandlerProtocol):
     def handle(self, text: str):
         print(f'{datetime.datetime.now()}: {text}')
 
-
 class SyslogHandler(LogHandlerProtocol):
     pass
 
@@ -77,6 +76,7 @@ class Logger:
 
 
 if __name__ == '__main__':
+
     text = [
         'INFO: System started',
         'WARNING: You are not using the last version',
@@ -88,7 +88,8 @@ if __name__ == '__main__':
     handlers = [
         ConsoleHandler(),
         FileHandler('log.log'),
-        SocketHandler('localhost', 135),
+        SocketHandler('localhost', 9000),
+        SyslogHandler()
     ]
 
     filters = [
