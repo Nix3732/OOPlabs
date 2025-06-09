@@ -1,0 +1,18 @@
+[
+  {
+    "id": 0,
+    "name": "Alice Johnson",
+    "login": "manager",
+    "password": "admin2025",
+    "email": "alice.johnson@example.com",
+    "address": false
+  },
+  {
+    "id": 1,
+    "name": "Vitya",
+    "login": "visitor",
+    "password": "guestpass",
+    "email": "bob.carter@example.com",
+    "address": "42 Oak Street"
+  }
+]
