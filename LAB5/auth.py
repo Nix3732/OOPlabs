@@ -22,7 +22,7 @@ class AuthServiceProtocol(Protocol):
 
 
 class AuthService:
-    def __init__(self, user_repo: UserRepositoryProtocol, session_file: str = r"D:\Python Project\OOP3\session_file.json"):
+    def __init__(self, user_repo: UserRepositoryProtocol, session_file: str = r"session_file.json"):
         self._user_repo = user_repo
         self._session_file = session_file
         self._current_user: Optional[User] = None
