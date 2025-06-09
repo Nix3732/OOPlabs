@@ -74,7 +74,7 @@ class UserRepositoryProtocol(DataRepositoryProtocol[User], Protocol):
 
 
 class UserRepository(DataRepository[User], UserRepositoryProtocol):
-    def __init__(self, file_path: str = r"D:\Python Project\OOP3\Users.json"):
+    def __init__(self, file_path: str = r"Users.json"):
         super().__init__(file_path, User)
 
     def get_by_login(self, login: str) -> Optional[User]:
