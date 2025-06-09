@@ -1,0 +1,13 @@
+{
+  "version": "1.0",
+  "key_bindings": {
+    "ctrl+plus": "volume_up",
+    "ctrl+minus": "volume_down",
+    "ctrl+p": "media_player",
+    "ctrl+l": "clear_screen",
+    "ctrl++": "exit"
+  },
+  "metadata": {
+    "saved_at": "2025-06-09T22:38:01.158840"
+  }
+}

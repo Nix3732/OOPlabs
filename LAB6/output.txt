@@ -1,0 +1,16 @@
+a a
+b ab
+c abc
+undo
+ ab
+undo
+ a
+b redo
+ ab
+volume increased +20%
+volume decreased -20%
+media player launched
+d abd
+undo
+ ab
+media player closed
