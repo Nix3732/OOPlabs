@@ -17,3 +17,14 @@ def config_release(injector: Injector):
     injector.register(Interface1, Class1Release, LifeStyle.Singleton)
     injector.register(Interface2, Class2Release, LifeStyle.Scoped)
     injector.register(Interface3, Class3Release, LifeStyle.PerRequest)
+
+
+class InjectorFactory:
+    @staticmethod
+    def create(debug_mode) -> Injector:
+        injector = Injector()
+        if debug_mode:
+            config_debug(injector)
+        else:
+            config_release(injector)
+        return injector

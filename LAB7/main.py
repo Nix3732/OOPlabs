@@ -1,5 +1,5 @@
 from injector import Injector
-from config import config_debug, config_release
+from config import config_debug, config_release, InjectorFactory
 from interfaces import Interface1, Interface2, Interface3
 
 
@@ -40,15 +40,13 @@ def demo_config(injector, config_func):
 
 def main():
     print("=== Debug Configuration ===")
-    injector = Injector()
-    config_debug(injector)
+    injector = InjectorFactory.create(debug_mode=True)
     demo_lifecycles(injector)
     print("\nSummary of instances in Debug config:")
     demo_config(injector, config_debug)
 
     print("\n=== Release Configuration ===")
-    injector = Injector()
-    config_release(injector)
+    injector = InjectorFactory.create(debug_mode=False)
     demo_lifecycles(injector)
     print("\nSummary of instances in Release config:")
     demo_config(injector, config_release)
